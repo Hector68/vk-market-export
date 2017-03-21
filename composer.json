@@ -1,0 +1,30 @@
+{
+  "name": "dmitriy/vk-market-export",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dmitriy Ronzhin",
+      "email": "hector.tmb@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "getjump/vk": ">=0.6",
+    "siriusphp/validation" : ">=2.2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.6.*",
+    "satooshi/php-coveralls": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hector68\\VkMarketExport\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Hector68\\VkMarketExport\\Tests\\": "tests/"
+    }
+  }
+}
