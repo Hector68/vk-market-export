@@ -39,6 +39,7 @@ class VkConfig
      */
     protected $groupId;
 
+
     /**
      * VkConfig constructor.
      * @param $appId
@@ -105,6 +106,15 @@ class VkConfig
     {
         return $this->groupId;
     }
+    
+    /**
+     * @return string
+     */
+    public function getGroupOwnerId()
+    {
+        return '-'.$this->groupId;
+    }
 
+   
     
 }

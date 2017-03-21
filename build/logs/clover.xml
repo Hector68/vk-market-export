@@ -1,55 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1490124804">
-  <project timestamp="1490124804">
+<coverage generated="1490128378">
+  <project timestamp="1490128378">
     <package name="Hector68\VkMarketExport\config">
       <file name="D:\OpenServer\domains\vk-export.dev/src/config/VkConfig.php">
         <class name="VkConfig" namespace="Hector68\VkMarketExport\config" fullPackage="Hector68" package="Hector68">
-          <metrics methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="11" elements="20" coveredelements="16"/>
+          <metrics methods="8" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="11" elements="22" coveredelements="16"/>
         </class>
-        <line num="51" type="method" name="__construct" crap="1" count="2"/>
-        <line num="53" type="stmt" count="2"/>
+        <line num="52" type="method" name="__construct" crap="1" count="2"/>
         <line num="54" type="stmt" count="2"/>
         <line num="55" type="stmt" count="2"/>
         <line num="56" type="stmt" count="2"/>
         <line num="57" type="stmt" count="2"/>
         <line num="58" type="stmt" count="2"/>
         <line num="59" type="stmt" count="2"/>
-        <line num="64" type="method" name="getAppId" crap="1" count="2"/>
-        <line num="66" type="stmt" count="2"/>
-        <line num="72" type="method" name="getSecret" crap="1" count="2"/>
-        <line num="74" type="stmt" count="2"/>
-        <line num="80" type="method" name="getRedirectUrl" crap="1" count="2"/>
-        <line num="82" type="stmt" count="2"/>
-        <line num="88" type="method" name="getToken" crap="2" count="0"/>
-        <line num="90" type="stmt" count="0"/>
-        <line num="96" type="method" name="getScope" crap="1" count="2"/>
-        <line num="98" type="stmt" count="2"/>
-        <line num="104" type="method" name="getGroupId" crap="2" count="0"/>
-        <line num="106" type="stmt" count="0"/>
-        <metrics loc="109" ncloc="60" classes="1" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="11" elements="20" coveredelements="16"/>
+        <line num="60" type="stmt" count="2"/>
+        <line num="65" type="method" name="getAppId" crap="1" count="2"/>
+        <line num="67" type="stmt" count="2"/>
+        <line num="73" type="method" name="getSecret" crap="1" count="2"/>
+        <line num="75" type="stmt" count="2"/>
+        <line num="81" type="method" name="getRedirectUrl" crap="1" count="2"/>
+        <line num="83" type="stmt" count="2"/>
+        <line num="89" type="method" name="getToken" crap="2" count="0"/>
+        <line num="91" type="stmt" count="0"/>
+        <line num="97" type="method" name="getScope" crap="1" count="2"/>
+        <line num="99" type="stmt" count="2"/>
+        <line num="105" type="method" name="getGroupId" crap="2" count="0"/>
+        <line num="107" type="stmt" count="0"/>
+        <line num="113" type="method" name="getGroupOwnerId" crap="2" count="0"/>
+        <line num="115" type="stmt" count="0"/>
+        <metrics loc="119" ncloc="67" classes="1" methods="8" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="11" elements="22" coveredelements="16"/>
       </file>
     </package>
     <package name="Hector68\VkMarketExport\helpers">
       <file name="D:\OpenServer\domains\vk-export.dev/src/helpers/Helper.php">
         <class name="Helper" namespace="Hector68\VkMarketExport\helpers">
-          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
         </class>
         <line num="12" type="method" name="getTokenLink" crap="1" count="1"/>
         <line num="14" type="stmt" count="1"/>
         <line num="15" type="stmt" count="1"/>
-        <line num="16" type="stmt" count="1"/>
-        <line num="17" type="stmt" count="1"/>
-        <line num="18" type="stmt" count="1"/>
-        <line num="20" type="stmt" count="1"/>
-        <line num="24" type="method" name="getTokenString" crap="2" count="1"/>
-        <line num="26" type="stmt" count="1"/>
-        <line num="27" type="stmt" count="1"/>
-        <line num="28" type="stmt" count="1"/>
-        <line num="29" type="stmt" count="1"/>
-        <line num="30" type="stmt" count="1"/>
-        <line num="32" type="stmt" count="1"/>
-        <line num="34" type="stmt" count="1"/>
-        <metrics loc="35" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
+        <line num="19" type="method" name="getTokenString" crap="2" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <metrics loc="24" ncloc="24" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+      </file>
+    </package>
+    <package name="Hector68\VkMarketExport\request">
+      <file name="D:\OpenServer\domains\vk-export.dev/src/request/Market.php">
+        <class name="Market" namespace="Hector68\VkMarketExport\request">
+          <metrics methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="10" elements="26" coveredelements="12"/>
+        </class>
+        <line num="29" type="method" name="getAuth" crap="2" count="2"/>
+        <line num="31" type="stmt" count="2"/>
+        <line num="33" type="stmt" count="2"/>
+        <line num="34" type="stmt" count="2"/>
+        <line num="35" type="stmt" count="2"/>
+        <line num="36" type="stmt" count="2"/>
+        <line num="37" type="stmt" count="2"/>
+        <line num="39" type="stmt" count="2"/>
+        <line num="40" type="stmt" count="2"/>
+        <line num="46" type="method" name="getVkApi" crap="12" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="51" type="stmt" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="60" type="method" name="__construct" crap="1" count="2"/>
+        <line num="62" type="stmt" count="2"/>
+        <line num="63" type="stmt" count="2"/>
+        <line num="66" type="method" name="getAllGoods" crap="2" count="0"/>
+        <line num="68" type="stmt" count="0"/>
+        <line num="69" type="stmt" count="0"/>
+        <line num="70" type="stmt" count="0"/>
+        <line num="72" type="stmt" count="0"/>
+        <line num="74" type="stmt" count="0"/>
+        <line num="75" type="stmt" count="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="78" type="stmt" count="0"/>
+        <metrics loc="80" ncloc="64" classes="1" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="10" elements="26" coveredelements="12"/>
+      </file>
+    </package>
+    <package name="Hector68\VkMarketExport\Tests">
+      <file name="D:\OpenServer\domains\vk-export.dev/tests/RequestTest.php">
+        <class name="RequestTest" namespace="Hector68\VkMarketExport\Tests">
+          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="7" coveredelements="0"/>
+        </class>
+        <line num="25" type="method" name="setUp" crap="2" count="0"/>
+        <line num="27" type="stmt" count="0"/>
+        <line num="28" type="stmt" count="0"/>
+        <line num="29" type="stmt" count="0"/>
+        <line num="31" type="method" name="testGetAllProduct" crap="2" count="0"/>
+        <line num="33" type="stmt" count="0"/>
+        <line num="34" type="stmt" count="0"/>
+        <metrics loc="34" ncloc="24" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="7" coveredelements="0"/>
       </file>
     </package>
     <file name="D:\OpenServer\domains\vk-export.dev/tests/_get_config.php">
@@ -2967,6 +3010,6 @@
     <file name="D:\OpenServer\domains\vk-export.dev/vendor/symfony/polyfill-mbstring/bootstrap.php">
       <metrics loc="56" ncloc="48" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="42" loc="8138" ncloc="5158" classes="27" methods="240" coveredmethods="54" conditionals="0" coveredconditionals="0" statements="2502" coveredstatements="732" elements="2742" coveredelements="786"/>
+    <metrics files="44" loc="8251" ncloc="5246" classes="29" methods="247" coveredmethods="56" conditionals="0" coveredconditionals="0" statements="2522" coveredstatements="734" elements="2769" coveredelements="790"/>
   </project>
 </coverage>
