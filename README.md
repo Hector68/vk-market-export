@@ -1,6 +1,6 @@
 # vk-market-export
 
-
+[![Coverage Status](https://coveralls.io/repos/github/Hector68/vk-market-export/badge.svg?branch=master)](https://coveralls.io/github/Hector68/vk-market-export?branch=master)
 
 Экспортирует продукты в vk
 
