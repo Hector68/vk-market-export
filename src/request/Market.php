@@ -51,7 +51,7 @@ class Market
     {
 
         if (empty($this->vkApi) === true && empty($this->config->getToken()) === false) {
-            $this->vkApi = Core::getInstance()->apiVersion('5.5')->setToken($this->config->getToken());
+            $this->vkApi = Core::getInstance()->apiVersion('5.63')->setToken($this->config->getToken());
         }
 
         return $this->vkApi;
@@ -72,8 +72,8 @@ class Market
     {
         $this->auth = $auth;
     }
-    
-    
+
+
     /**
      * Market constructor.
      * @param $config
@@ -96,14 +96,14 @@ class Market
             )
             ->fetchData();
 
-            if($fetchData->error == false) {
-                $result = [];
-                foreach ($fetchData->getResponse() as $item) {
-                    $result[$item->id] = GoodsFabric::setProductFromResponse($item);
-                }
-                return $result;
+        if ($fetchData->error == false) {
+            $result = [];
+            foreach ($fetchData->getResponse() as $item) {
+                $result[$item->id] = GoodsFabric::setProductFromResponse($item);
             }
-        
+            return $result;
+        }
+
         return false;
     }
 
@@ -112,62 +112,77 @@ class Market
      * Загружает изображение на сервер, возвратит его id
      * @param $filePath
      * @param bool $is_main
-     * @return int|false
+     * @return bool
+     * @throws VkValidateException
      */
     public function uploadPhotoGoods($filePath, $is_main = true)
     {
-        /** @todo добавить проверки дополнительные, такие как размер изображения Итд */
-        $server = $this
-            ->getVkApi()
-            ->request(
-                'photos.getMarketUploadServer',
-                [
-                    'group_id' => $this->config->getGroupId(),
-                    'main_photo' => $is_main
-                ]
-            )
-            ->fetchData();
+        $validation = new Validator();
 
-        if (empty($server->response->data->upload_url) === false) {
-            $serverUrl = $server->response->data->upload_url;
-            $client = new \GuzzleHttp\Client();
+        $validation->add([
+            'group_id' => 'required | integer',
+            'main_photo' => 'required | integer',
+            'filePath' => 'required | File\Image | File\ImageHeight({"min":400,"max":14000}) | File\ImageWidth({"min":400,"max":14000})'
+        ]);
 
-            $request = $client->request(
-                'POST',
-                $serverUrl,
-                [
-                    'multipart' => [
+        $serverData = [
+            'group_id' => $this->config->getGroupId(),
+            'main_photo' => $is_main
+        ];
 
-                        [
-                            'name' => 'file',
-                            'contents' => fopen($filePath, 'r')
+        if ($validation->validate(array_merge($serverData, ['filePath' => $filePath]))) {
+            $server = $this
+                ->getVkApi()
+                ->request(
+                    'photos.getMarketUploadServer',
+                    $serverData
+                )
+                ->fetchData();
+
+            if (empty($server->response->data->upload_url) === false) {
+                $serverUrl = $server->response->data->upload_url;
+                $client = new \GuzzleHttp\Client();
+
+                $request = $client->request(
+                    'POST',
+                    $serverUrl,
+                    [
+                        'multipart' => [
+
+                            [
+                                'name' => 'file',
+                                'contents' => fopen($filePath, 'r')
+                            ]
                         ]
-                    ]
-                ]);
-            $responseBody = $request->getBody()->getContents();
-            $response = json_decode($responseBody);
+                    ]);
+                $responseBody = $request->getBody()->getContents();
+                $response = json_decode($responseBody);
 
-            if (isset($response->hash)) {
+                if (isset($response->hash)) {
 
-                $result = $this
-                    ->getVkApi()
-                    ->request(
-                        'photos.saveMarketPhoto',
-                        [
-                            'group_id' => $this->config->getGroupId(),
-                            'main_photo' => $is_main,
-                            'photo' => $response->photo,
-                            'server' => $response->server,
-                            'hash' => $response->hash,
-                            'crop_data' => $response->crop_data,
-                            'crop_hash' => $response->crop_hash
-                        ]
-                    )->fetchData();
+                    $result = $this
+                        ->getVkApi()
+                        ->request(
+                            'photos.saveMarketPhoto',
+                            [
+                                'group_id' => $this->config->getGroupId(),
+                                'main_photo' => $is_main,
+                                'photo' => $response->photo,
+                                'server' => $response->server,
+                                'hash' => $response->hash,
+                                'crop_data' => $response->crop_data,
+                                'crop_hash' => $response->crop_hash
+                            ]
+                        )->fetchData();
 
-                if (isset($result->response->items[0]->id)) {
-                    return $result->response->items[0]->id;
+                    if (isset($result->response->items[0]->id)) {
+                        return $result->response->items[0]->id;
+                    }
                 }
             }
+        } else {
+            $error = $this->getValidateErrorMessage($validation->getMessages());
+            throw new VkValidateException($error);
         }
         return false;
     }
@@ -179,6 +194,17 @@ class Market
      */
     public function saveProduct(GoodsInterface $goods)
     {
+        $validation = new Validator();
+        $validation->add([
+            'owner_id' => 'required | integer',
+            'name' => 'required | minLength(4) | maxLength(100)',
+            'description' => 'required | minLength(10)',
+            'category_id' => 'required | integer',
+            'price' => 'required | number',
+            'deleted' => 'required | integer',
+            'main_photo_id' => 'required | integer'
+        ]);
+        
         $result = $this
             ->getVkApi()
             ->request(
@@ -250,7 +276,7 @@ class Market
             foreach ($elementErrors as $error) {
                 $errorsElErrors[] = $error->__toString();
             }
-            $result[] = $tmp. implode(', ', $errorsElErrors);
+            $result[] = $tmp . implode(', ', $errorsElErrors);
         }
         return implode('; ', $result);
     }

@@ -33,6 +33,7 @@ $goods = GoodsFabric::newGoods(
     __DIR__.'/G1J0oFX6OJQ.jpg'
 );
 
+$market->saveProduct($goods);
 ```
 
 

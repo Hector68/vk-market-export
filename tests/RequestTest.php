@@ -75,7 +75,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAllProduct()
     {
-
         
         $this->api->error = false;
         $dataFromVk = json_decode($this->serializeGoods);
@@ -97,4 +96,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(GoodsInterface::class, $first);
 
     }
+    
+    public function testPhotoUpload()
+    {
+        
+    }
+    
+    
 }
