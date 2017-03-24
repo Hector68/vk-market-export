@@ -1,8 +1,7 @@
 # !!! Библиотека только пишется, не используйте в продакшене. Для ускорения купите пиво, или хотя бы сделайте пулл реквесты.
 
 # vk-market-export
-
-[![Coverage Status](https://coveralls.io/repos/github/Hector68/vk-market-export/badge.svg?branch=master)](https://coveralls.io/github/Hector68/vk-market-export?branch=master)
+[![Build Status](https://travis-ci.org/Hector68/vk-market-export.svg?branch=master)](https://travis-ci.org/Hector68/vk-market-export) [![Coverage Status](https://coveralls.io/repos/github/Hector68/vk-market-export/badge.svg?branch=master)](https://coveralls.io/github/Hector68/vk-market-export?branch=master)
 
 Экспортирует продукты в vk
 
