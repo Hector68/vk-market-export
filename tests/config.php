@@ -4,7 +4,7 @@
 use Hector68\VkMarketExport\config\VkConfig;
 
 if(is_file(dirname(__FILE__) . '/_get_config.php')) {
-    return dirname(__FILE__) . '/_get_config.php';
+    return include(dirname(__FILE__) . '/_get_config.php');
 }
 return new VkConfig(
     1111111,
