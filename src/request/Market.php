@@ -11,6 +11,7 @@ use getjump\Vk\Auth;
 use getjump\Vk\Core;
 use Hector68\VkMarketExport\config\VkConfig;
 use Hector68\VkMarketExport\exceptions\VkValidateException;
+use Hector68\VkMarketExport\models\AlbumInterface;
 use Hector68\VkMarketExport\models\GoodsFabric;
 use Hector68\VkMarketExport\models\GoodsInterface;
 use Sirius\Validation\Validator;
@@ -204,8 +205,8 @@ class Market
             'deleted' => 'required | integer',
             'main_photo_id' => 'required | integer'
         ]);
-        
-        $result = $this
+
+        $fetchData = $this
             ->getVkApi()
             ->request(
                 'market.add',
@@ -220,14 +221,20 @@ class Market
                 ]
             )->fetchData();
 
-        if (isset($result->response->data->market_item_id)) {
-            return $result->response->data->market_item_id;
+        if ($fetchData->error == false) {
+            $result = $fetchData->getResponse();
+            return $result->market_item_id;
         }
-
         return false;
     }
 
-
+    /***
+     * Обновляет продукт
+     *
+     * @param GoodsInterface $goods
+     * @return bool
+     * @throws VkValidateException
+     */
     public function updateProduct(GoodsInterface $goods)
     {
         $validation = new Validator();
@@ -254,17 +261,95 @@ class Market
         ];
 
         if ($validation->validate($data)) {
-            $result = $this->getVkApi()->request('market.edit', $data)->fetchData();
+            $fetchData = $this->getVkApi()->request('market.edit', $data)->fetchData();
+
+            if ($fetchData->error == false) {
+                $result = $fetchData->getResponse();
+                return $result;
+            }
         } else {
             $error = $this->getValidateErrorMessage($validation->getMessages());
             throw new VkValidateException($error);
         }
 
-
-        return $result;
-
+        return false;
     }
 
+    /**
+     * Сохраняет альбом
+     * @param AlbumInterface $album
+     * @return mixed
+     * @throws VkValidateException
+     */
+    public function saveAlbum(AlbumInterface $album)
+    {
+        $validation = new Validator();
+        $validation->add([
+            'owner_id' => 'required | integer',
+            'title' => 'required | minLength(1) | maxLength(128)',
+            'photo_id' => 'integer',
+            'main_album' => 'integer'
+        ]);
+
+        $data = [
+            'owner_id' => $album->getOwnerId(),
+            'title' => $album->getTitle(),
+            'photo_id' => $album->getPhotoId(),
+            'main_album' => $album->isMainAlbum()
+        ];
+
+        if ($validation->validate($data)) {
+            $fetchData = $this->getVkApi()->request('market.addAlbum', $data)->fetchData();
+            if ($fetchData->error == false) {
+                $result = $fetchData->getResponse();
+                return $result->market_album_id;
+            }
+        } else {
+            $error = $this->getValidateErrorMessage($validation->getMessages());
+            throw new VkValidateException($error);
+        }
+    }
+
+    /**
+     * Добавляет товар в альбом
+     * @param GoodsInterface $goods
+     * @param AlbumInterface[] $albums
+     * @return bool
+     * @throws VkValidateException
+     */
+    public function addToAlbum(GoodsInterface $goods, array $albums)
+    {
+        $validation = new Validator();
+        $validation->add([
+            'owner_id' => 'required | integer',
+            'item_id' => 'required | integer',
+            'album_ids' => 'required',
+        ]);
+
+        $albumsIdsArray = [];
+        foreach ($albums as $album) {
+            $albumsIdsArray[] = $album->getId();
+        }
+
+        $data = [
+            'owner_id' => $goods->getOwnerId(),
+            'item_id' => $goods->getId(),
+            'album_ids' => implode(',', $albumsIdsArray),
+        ];
+
+        if ($validation->validate($data)) {
+            $fetchData = $this->getVkApi()->request('market.addToAlbum', $data)->fetchData();
+            if ($fetchData->error == false) {
+                $result = $fetchData->getResponse();
+                return $result;
+            }
+        } else {
+            $error = $this->getValidateErrorMessage($validation->getMessages());
+            throw new VkValidateException($error);
+        }
+        
+        return false;
+    }
 
     protected function getValidateErrorMessage($errors)
     {
