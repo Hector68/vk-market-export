@@ -51,31 +51,32 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->config = include(dirname(__FILE__) . '/config.php');
         $this->request = new Market($this->config);
         
+    }
+
+    protected function setMock()
+    {
         $this->api = $this->getMockBuilder(Api::class)
             ->setMethods(['getResponse'])
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->transaction = $this->getMockBuilder(RequestTransaction::class)
-        ->setMethods(['fetchData', 'getResponse'])
-        ->disableAutoload()
-        ->disableOriginalConstructor()
-        ->getMock();
-        
+            ->setMethods(['fetchData', 'getResponse'])
+            ->disableAutoload()
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->core = $this->getMockBuilder(Core::class)
             ->setMethods(['request', 'getInstance'])
             ->disableAutoload()
             ->disableOriginalConstructor()
             ->getMock();
-        
     }
-
-
-
+    
 
     public function testGetAllProduct()
     {
-        
+        $this->setMock();
         $this->api->error = false;
         $dataFromVk = json_decode($this->serializeGoods);
         
@@ -95,7 +96,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(GoodsInterface::class, $first);
 
+        
+
     }
+    
+
     
     public function testPhotoUpload()
     {
