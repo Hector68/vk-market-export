@@ -103,10 +103,23 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testAddGoodsToAlbum()
     {
+        $this->setMock();
+        $this->api->error = false;
+        $dataFromVk = 1;
+
+        $this->api->expects($this->any())->method('getResponse')->will($this->returnValue($dataFromVk));
+        $this->transaction->error = false;
+        $this->transaction->expects($this->any())->method('fetchData')->will($this->returnValue($this->api));
+
+        $this->core->expects($this->any())->method('request')->will($this->returnValue($this->transaction));
+        $this->market->setVkApi($this->core);
+        
         \PHPUnit_Framework_Error_Warning::$enabled = FALSE;
         $goods = new Goods('671977', $this->config->getGroupOwnerId(), 'Title', 'Description', 999, 1, 0, 0 );
         $album = new Album($this->config->getGroupOwnerId(), 'Title', null, null, 2);
-        $this->market->addToAlbum($goods, [$album]);
+       $result = $this->market->addToAlbum($goods, [$album]);
+        
+        $this->assertTrue($result);
     }
 
 

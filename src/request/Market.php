@@ -265,7 +265,7 @@ class Market
 
             if ($fetchData->error == false) {
                 $result = $fetchData->getResponse();
-                return $result;
+                return (bool) $result;
             }
         } else {
             $error = $this->getValidateErrorMessage($validation->getMessages());
@@ -341,7 +341,7 @@ class Market
             $fetchData = $this->getVkApi()->request('market.addToAlbum', $data)->fetchData();
             if ($fetchData->error == false) {
                 $result = $fetchData->getResponse();
-                return $result;
+                return (bool) $result;
             }
         } else {
             $error = $this->getValidateErrorMessage($validation->getMessages());
