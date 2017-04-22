@@ -228,6 +228,30 @@ class Market
         return false;
     }
 
+     /**
+     * Удаляет продукт
+     * @param Goods $goods
+     *
+     * @return bool
+     */
+    public function deleteOneGoods(Goods $goods)
+    {
+        $fetchData = $this->getVkApi()
+                          ->request(
+                              'market.delete',
+                              [
+                                  'owner_id' => $goods->getOwnerId(),
+                                  'item_id' => $goods->getId()
+                              ]
+                          )
+                          ->fetchData();
+        if ($fetchData->error == false) {
+            return true;
+        }
+
+        return false;
+    }
+
     /***
      * Обновляет продукт
      *
