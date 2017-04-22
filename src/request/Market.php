@@ -1,8 +1,4 @@
 <?php
-/**
- * Date: 21.03.2017
- * Time: 22:50
- */
 
 namespace Hector68\VkMarketExport\request;
 
@@ -12,6 +8,7 @@ use getjump\Vk\Core;
 use Hector68\VkMarketExport\config\VkConfig;
 use Hector68\VkMarketExport\exceptions\VkValidateException;
 use Hector68\VkMarketExport\models\AlbumInterface;
+use Hector68\VkMarketExport\models\Goods;
 use Hector68\VkMarketExport\models\GoodsFabric;
 use Hector68\VkMarketExport\models\GoodsInterface;
 use Sirius\Validation\Validator;
